@@ -20,7 +20,7 @@ SET @start_time = GETDATE ();
 	
 		PRINT '>> Insering Data Into: Bronze.crm_cust_info';
 		BULK INSERT Bronze.crm_cust_info
-		FROM 'PATH\cust_info.csv'
+		FROM 'https://raw.githubusercontent.com/DarioKonta/SQL_Data_Warahouse_Project/refs/heads/main/Datasets/cust_info.csv'
 		WITH (
 			FIRSTROW = 2,
 			FIELDTERMINATOR = ',',
@@ -36,7 +36,7 @@ SET @start_time = GETDATE();
 	
 		PRINT '>> Insering Data Into: Bronze.crm_prd_info';
 		BULK INSERT Bronze.crm_prd_info
-		FROM 'PATH\prd_info.csv'
+		FROM 'https://raw.githubusercontent.com/DarioKonta/SQL_Data_Warahouse_Project/refs/heads/main/Datasets/prd_info.csv'
 		WITH (
 			FIRSTROW = 2,
 			FIELDTERMINATOR = ',',
@@ -52,7 +52,7 @@ SET @start_time = GETDATE();
 	
 		PRINT '>> Insering Data Into: Bronze.crm_sales_details';
 		BULK INSERT Bronze.crm_sales_details
-		FROM 'PATH\sales_details.csv'
+		FROM 'https://raw.githubusercontent.com/DarioKonta/SQL_Data_Warahouse_Project/refs/heads/main/Datasets/sales_details.csv'
 		WITH (
 			FIRSTROW = 2,
 			FIELDTERMINATOR = ',',
@@ -72,7 +72,7 @@ SET @start_time = GETDATE();
 	
 		PRINT '>> Insering Data Into: Bronze.erp_CUST_AZ12';
 		BULK INSERT Bronze.erp_CUST_AZ12
-		FROM 'PATH\CUST_AZ12.csv'
+		FROM 'https://raw.githubusercontent.com/DarioKonta/SQL_Data_Warahouse_Project/refs/heads/main/Datasets/CUST_AZ12.csv'
 		WITH (
 			FIRSTROW = 2,
 			FIELDTERMINATOR = ',',
@@ -88,7 +88,7 @@ SET @start_time = GETDATE();
 	
 		PRINT '>> Insering Data Into: Bronze.erp_LOC_A101';
 		BULK INSERT Bronze.erp_LOC_A101
-		FROM 'PATH\LOC_A101.csv'
+		FROM 'https://raw.githubusercontent.com/DarioKonta/SQL_Data_Warahouse_Project/refs/heads/main/Datasets/LOC_A101.csv'
 		WITH (
 			FIRSTROW = 2,
 			FIELDTERMINATOR = ',',
@@ -104,7 +104,7 @@ SET @start_time = GETDATE();
 	
 		PRINT '>> Insering Data Into: Bronze.erp_PX_CAT_G1V2';
 		BULK INSERT Bronze.erp_PX_CAT_G1V2
-		FROM 'PATH\PX_CAT_G1V2.csv'
+		FROM 'https://raw.githubusercontent.com/DarioKonta/SQL_Data_Warahouse_Project/refs/heads/main/Datasets/PX_CAT_G1V2.csv'
 		WITH (
 			FIRSTROW = 2,
 			FIELDTERMINATOR = ',',
