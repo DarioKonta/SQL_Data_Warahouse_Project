@@ -1,0 +1,129 @@
+CREATE OR ALTER PROCEDURE Bronze.load_Bronze AS
+BEGIN
+	DECLARE @start_time DATETIME, @end_time DATETIME, @batch_start_time DATETIME, @batch_end_time DATETIME
+	BEGIN TRY
+
+SET @batch_start_time = GETDATE();
+
+PRINT '========================================';
+PRINT 'Loading the Bronze Layer';
+PRINT '========================================';
+
+PRINT '----------------------------------------';
+PRINT 'Loading the CRM Tables';
+PRINT '----------------------------------------';
+
+
+SET @start_time = GETDATE ();
+	PRINT '>> Truncating Table: Bronze.crm_cust_info';
+	TRUNCATE TABLE Bronze.crm_cust_info
+	
+		PRINT '>> Insering Data Into: Bronze.crm_cust_info';
+		BULK INSERT Bronze.crm_cust_info
+		FROM 'PATH\cust_info.csv'
+		WITH (
+			FIRSTROW = 2,
+			FIELDTERMINATOR = ',',
+			TABLOCK 
+		);
+SET @end_time = GETDATE ();
+PRINT '>> Load Duration: ' +CAST(DATEDIFF(second, @start_time, @end_time) AS NVARCHAR) + ' seconds';
+PRINT '---------------------------------------------------'
+
+SET @start_time = GETDATE();
+	PRINT '>> Truncating Table: Bronze.crm_prd_info';
+	TRUNCATE TABLE Bronze.crm_prd_info
+	
+		PRINT '>> Insering Data Into: Bronze.crm_prd_info';
+		BULK INSERT Bronze.crm_prd_info
+		FROM 'PATH\prd_info.csv'
+		WITH (
+			FIRSTROW = 2,
+			FIELDTERMINATOR = ',',
+			TABLOCK 
+		);
+SET @end_time = GETDATE();
+PRINT '>> Load Duration: ' + CAST(DATEDIFF(second, @start_time, @end_time) AS NVARCHAR) + ' seconds';
+PRINT '---------------------------------------------------'
+
+SET @start_time = GETDATE();
+	PRINT '>> Truncating Table: Bronze.crm_sales_details';
+	TRUNCATE TABLE Bronze.crm_sales_details
+	
+		PRINT '>> Insering Data Into: Bronze.crm_sales_details';
+		BULK INSERT Bronze.crm_sales_details
+		FROM 'PATH\sales_details.csv'
+		WITH (
+			FIRSTROW = 2,
+			FIELDTERMINATOR = ',',
+			TABLOCK 
+			);
+SET @end_time = GETDATE();
+PRINT '>> Loading Duration: ' + CAST(DATEDIFF(second, @start_time, @end_time) AS NVARCHAR) + ' seconds';
+PRINT '---------------------------------------------------'
+
+PRINT '----------------------------------------';
+PRINT 'Loading the ERP Tables';
+PRINT '----------------------------------------';
+
+SET @start_time = GETDATE();
+	PRINT '>> Truncating Table: Bronze.erp_CUST_AZ12';
+	TRUNCATE TABLE Bronze.erp_CUST_AZ12
+	
+		PRINT '>> Insering Data Into: Bronze.erp_CUST_AZ12';
+		BULK INSERT Bronze.erp_CUST_AZ12
+		FROM 'PATH\CUST_AZ12.csv'
+		WITH (
+			FIRSTROW = 2,
+			FIELDTERMINATOR = ',',
+			TABLOCK 
+		);
+SET @end_time = GETDATE();
+PRINT '>> Loading Duration: ' + CAST(DATEDIFF(second, @start_time, @end_time) AS NVARCHAR) + ' seconds'
+PRINT '---------------------------------------------------'
+
+SET @start_time = GETDATE();
+	PRINT '>> Truncating Table: Bronze.erp_LOC_A101';
+	TRUNCATE TABLE Bronze.erp_LOC_A101
+	
+		PRINT '>> Insering Data Into: Bronze.erp_LOC_A101';
+		BULK INSERT Bronze.erp_LOC_A101
+		FROM 'PATH\LOC_A101.csv'
+		WITH (
+			FIRSTROW = 2,
+			FIELDTERMINATOR = ',',
+			TABLOCK 
+		);
+SET @end_time = GETDATE();
+PRINT '>> Loading Duration: ' + CAST(DATEDIFF(second, @start_time, @end_time) AS NVARCHAR) + ' seconds'
+PRINT '---------------------------------------------------'
+
+SET @start_time = GETDATE();
+	PRINT '>> Truncating Table: Bronze.erp_PX_CAT_G1V2';
+	TRUNCATE TABLE Bronze.erp_PX_CAT_G1V2
+	
+		PRINT '>> Insering Data Into: Bronze.erp_PX_CAT_G1V2';
+		BULK INSERT Bronze.erp_PX_CAT_G1V2
+		FROM 'PATH\PX_CAT_G1V2.csv'
+		WITH (
+			FIRSTROW = 2,
+			FIELDTERMINATOR = ',',
+			TABLOCK 
+		);
+SET @end_time = GETDATE();
+PRINT '>> Loading Duration: ' + CAST(DATEDIFF(second, @start_time, @end_time) AS NVARCHAR) + ' seconds';
+PRINT '---------------------------------------------------'
+
+SET @batch_end_time = GETDATE();
+PRINT '==================================================';
+PRINT '	Bronze Layer Loaded Succsefully';
+PRINT '		>> Loading Duration: ' + CAST(DATEDIFF(second, @batch_start_time, @batch_end_time) AS NVARCHAR) + ' seconds';
+PRINT '==================================================';
+	
+END TRY 
+	BEGIN CATCH
+		PRINT '=================================================='; 
+		PRINT 'EROR OCCURED DURING LOADING BRONZE LAYER'; 
+		PRINT '=================================================='; 
+	END CATCH
+END
